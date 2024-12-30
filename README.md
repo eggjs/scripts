@@ -1,4 +1,18 @@
-# egg-scripts
+# @eggjs/scripts
+
+[![NPM version][npm-image]][npm-url]
+[![Node.js CI](https://github.com/eggjs/scripts/actions/workflows/nodejs.yml/badge.svg)](https://github.com/eggjs/scripts/actions/workflows/nodejs.yml)
+[![Test coverage][codecov-image]][codecov-url]
+[![npm download][download-image]][download-url]
+[![Node.js Version](https://img.shields.io/node/v/@eggjs/scripts.svg?style=flat)](https://nodejs.org/en/download/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://makeapullrequest.com)
+
+[npm-image]: https://img.shields.io/npm/v/@eggjs/scripts.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/@eggjs/scripts
+[codecov-image]: https://codecov.io/github/eggjs/scripts/coverage.svg?branch=master
+[codecov-url]: https://codecov.io/github/eggjs/scripts?branch=master
+[download-image]: https://img.shields.io/npm/dm/@eggjs/scripts.svg?style=flat-square
+[download-url]: https://npmjs.org/package/@eggjs/scripts
 
 deploy tool for egg project.
 
@@ -7,7 +21,7 @@ deploy tool for egg project.
 ## Install
 
 ```bash
-$ npm i egg-scripts --save
+npm i @eggjs/scripts --save
 ```
 
 ## Usage
@@ -38,6 +52,7 @@ Start egg at prod mode.
 
 ```bash
 $ eggctl start [options] [baseDir]
+
 # Usage
 # eggctl start --port=7001
 # eggctl start ./server
@@ -67,6 +82,7 @@ Stop egg gracefull.
 
 ```bash
 $ eggctl stop [options]
+
 # Usage
 # eggctl stop --title=example
 ```
@@ -85,11 +101,12 @@ In addition to the command line specification, options can also be specified in 
     "port": 1234,
     "ignore-stderr": true,
     // will pass as `node --max-http-header-size=20000`
-    "node-options--max-http-header-size": "20000"
+    "node-options--max-http-header-size": "20000",
+    // will pass as `node --allow-wasi`
+    "node-options--allow-wasi": true
   }
 }
 ```
-
 
 ## Questions & Suggestions
 
@@ -101,6 +118,6 @@ Please open an issue [here](https://github.com/eggjs/egg/issues?q=is%3Aissue+is%
 
 ## Contributors
 
-[![Contributors](https://contrib.rocks/image?repo=eggjs/egg-scripts)](https://github.com/eggjs/egg-scripts/graphs/contributors)
+[![Contributors](https://contrib.rocks/image?repo=eggjs/scripts)](https://github.com/eggjs/scripts/graphs/contributors)
 
 Made with [contributors-img](https://contrib.rocks).

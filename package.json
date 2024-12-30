@@ -1,58 +1,100 @@
 {
-  "name": "egg-scripts",
+  "name": "@eggjs/scripts",
   "version": "3.1.0",
-  "description": "deploy tool for egg project",
-  "main": "index.js",
-  "bin": {
-    "egg-scripts": "bin/egg-scripts.js",
-    "eggctl": "bin/egg-scripts.js"
+  "publishConfig": {
+    "access": "public"
   },
+  "description": "deploy tool for egg project",
   "dependencies": {
-    "await-event": "^2.1.0",
+    "@eggjs/utils": "^4.2.1",
+    "@oclif/core": "^4.2.0",
     "common-bin": "^3.0.1",
-    "egg-utils": "^2.5.0",
     "mz": "^2.7.0",
     "mz-modules": "^2.1.0",
-    "node-homedir": "^1.1.1",
+    "node-homedir": "^2.0.0",
     "runscript": "^2.0.1",
-    "source-map-support": "^0.5.9",
-    "utility": "^2.2.0",
-    "zlogger": "^1.1.0"
+    "source-map-support": "^0.5.21",
+    "utility": "^2.4.0"
   },
   "devDependencies": {
-    "co": "^4.6.0",
-    "coffee": "^5.1.1",
-    "egg": "^3.9.0",
-    "egg-bin": "^6.12.0",
-    "eslint": "^8.30.0",
-    "eslint-config-egg": "13",
-    "mm": "^3.2.1",
-    "typescript": "^4.9.4",
-    "urllib": "^4.6.6"
+    "@arethetypeswrong/cli": "^0.17.1",
+    "@eggjs/bin": "^7.0.1",
+    "@eggjs/tsconfig": "1",
+    "@types/mocha": "10",
+    "@types/node": "22",
+    "coffee": "^5.5.1",
+    "egg": "beta",
+    "eslint": "8",
+    "eslint-config-egg": "14",
+    "mm": "^4.0.1",
+    "rimraf": "6",
+    "ts-node": "^10.9.2",
+    "tshy": "3",
+    "tshy-after": "1",
+    "typescript": "5",
+    "urllib": "4"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18.19.0"
   },
   "scripts": {
-    "test": "npm run lint -- --fix && npm run test-local",
-    "test-local": "egg-bin test --ts false",
-    "cov": "egg-bin test --ts false",
-    "lint": "eslint .",
-    "ci": "npm run lint && npm run cov"
+    "lint": "eslint --cache src test --ext .ts",
+    "pretest": "npm run clean && npm run lint -- --fix && npm run prepublishOnly",
+    "test": "egg-bin test",
+    "posttest": "npm run clean",
+    "preci": "npm run clean && npm run lint && npm run prepublishOnly",
+    "ci": "egg-bin test",
+    "postci": "npm run clean",
+    "clean": "rimraf dist",
+    "prepublishOnly": "tshy && tshy-after && attw --pack"
   },
-  "files": [
-    "index.js",
-    "lib",
-    "bin"
-  ],
   "bug": {
     "url": "https://github.com/eggjs/egg/issues"
   },
-  "homepage": "https://github.com/eggjs/egg-scripts",
+  "homepage": "https://github.com/eggjs/scripts",
   "repository": {
     "type": "git",
-    "url": "git@github.com:eggjs/egg-scripts.git"
+    "url": "git@github.com:eggjs/scripts.git"
   },
   "author": "TZ <atian25@qq.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "oclif": {
+    "bin": "eggctl",
+    "commands": "./dist/esm/commands",
+    "dirname": "eggctl",
+    "topicSeparator": " "
+  },
+  "bin": {
+    "egg-scripts": "./bin/run.js",
+    "eggctl": "./bin/run.js"
+  },
+  "type": "module",
+  "tshy": {
+    "exports": {
+      ".": "./src/index.ts",
+      "./package.json": "./package.json"
+    }
+  },
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/index.d.ts",
+        "default": "./dist/commonjs/index.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "bin",
+    "dist",
+    "src",
+    "scripts"
+  ],
+  "types": "./dist/commonjs/index.d.ts",
+  "main": "./dist/commonjs/index.js",
+  "module": "./dist/esm/index.js"
 }

@@ -12,4 +12,4 @@ export default class AppController extends Controller {
       };
     }
   }
-};
+}

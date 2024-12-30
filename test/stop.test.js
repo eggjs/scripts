@@ -10,7 +10,6 @@ const coffee = require('coffee');
 const httpclient = require('urllib');
 const mm = require('mm');
 const utils = require('./utils');
-const isWin = process.platform === 'win32';
 
 describe('test/stop.test.js', () => {
   const eggBin = require.resolve('../bin/egg-scripts.js');
