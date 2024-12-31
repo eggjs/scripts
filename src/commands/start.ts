@@ -223,7 +223,7 @@ export default class Start<T extends typeof Start> extends BaseCommand<T> {
       flags.sourcemap = true;
     }
     if (flags.sourcemap) {
-      const sourceMapSupport = importResolve('source-map-support/register', {
+      const sourceMapSupport = importResolve('source-map-support/register.js', {
         paths: [ getSourceDirname() ],
       });
       if (this.isESM) {
