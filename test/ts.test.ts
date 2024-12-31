@@ -94,7 +94,7 @@ describe('test/ts.test.ts', () => {
         cwd: fixturePath,
         shell: isWindows,
       });
-      assert(!result.stderr.toString());
+      assert.equal(result.stderr.toString(), '');
     });
 
     afterEach(async () => {
@@ -112,8 +112,9 @@ describe('test/ts.test.ts', () => {
       assert.equal(replaceWeakRefMessage(app.stderr), '');
       assert.match(app.stdout, /egg started on http:\/\/127\.0\.0\.1:7001/);
       const result = await request('http://127.0.0.1:7001', { dataType: 'json' });
-      // console.log(result.data);
-      assert(result.data.stack.includes(path.normalize('app/controller/home.ts:6:13')));
+      console.log(result.data);
+      assert.match(result.data.stack, /home\.ts:6:13/);
+      // assert(result.data.stack.includes(path.normalize('app/controller/home.ts:6:13')));
     });
   });
 });

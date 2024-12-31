@@ -8,7 +8,7 @@
     "typescript": true
   },
   "scripts": {
-    "build": "sh ../../../node_modules/.bin/tsc",
+    "build": "./../../../node_modules/.bin/tsc",
     "windows-build": "call ../../../node_modules/.bin/tsc.cmd"
   }
 }

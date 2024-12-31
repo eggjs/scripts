@@ -204,7 +204,7 @@ describe('test/stop.test.ts', () => {
     beforeEach(async () => {
       await cleanup(fixturePath);
       app = coffee.fork(eggBin, [ 'start', '--workers=2', '--title=example', fixturePath ]) as Coffee;
-      // app.debug();
+      app.debug();
       app.expect('code', 0);
 
       app2 = coffee.fork(eggBin, [ 'start', '--workers=2', '--title=test', '--port=7002', fixturePath ]) as Coffee;
@@ -213,14 +213,14 @@ describe('test/stop.test.ts', () => {
       await scheduler.wait(waitTime);
 
       assert.equal(replaceWeakRefMessage(app.stderr), '');
-      assert(app.stdout.match(/custom-framework started on http:\/\/127\.0\.0\.1:7001/));
+      assert.match(app.stdout, /custom-framework started on http:\/\/127\.0\.0\.1:7001/);
       const result = await request('http://127.0.0.1:7001');
-      assert(result.data.toString() === 'hi, egg');
+      assert.equal(result.data.toString(), 'hi, egg');
 
       assert.equal(replaceWeakRefMessage(app2.stderr), '');
-      assert(app2.stdout.match(/custom-framework started on http:\/\/127\.0\.0\.1:7002/));
+      assert.match(app2.stdout, /custom-framework started on http:\/\/127\.0\.0\.1:7002/);
       const result2 = await request('http://127.0.0.1:7002');
-      assert(result2.data.toString() === 'hi, egg');
+      assert.equal(result2.data.toString(), 'hi, egg');
     });
 
     afterEach(async () => {

@@ -62,7 +62,10 @@
     "bin": "eggctl",
     "commands": "./dist/esm/commands",
     "dirname": "eggctl",
-    "topicSeparator": " "
+    "topicSeparator": " ",
+    "additionalHelpFlags": [
+      "-h"
+    ]
   },
   "bin": {
     "egg-scripts": "./bin/run.js",
