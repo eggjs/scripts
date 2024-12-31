@@ -1,5 +1,53 @@
 # Changelog
 
+## [4.0.0](https://github.com/eggjs/scripts/compare/v3.1.0...v4.0.0) (2024-12-31)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop Node.js < 18.19.0 support
+
+part of https://github.com/eggjs/egg/issues/3644
+
+https://github.com/eggjs/egg/issues/5257
+
+
+<!-- This is an auto-generated comment: release notes by coderabbit.ai
+-->
+## Summary by CodeRabbit
+
+## Release Notes
+
+- **New Features**
+	- Added support for ECMAScript modules (ESM).
+	- Enhanced CLI with more robust start and stop commands.
+	- Improved TypeScript integration and type safety.
+	- Introduced new commands for stopping an Egg.js server application.
+	- Added new configuration options for logging and process management.
+
+- **Improvements**
+	- Updated package configuration for better modularity.
+	- Modernized test infrastructure with TypeScript support.
+	- Refined error handling and logging mechanisms.
+	- Enhanced process management capabilities.
+- Improved documentation with updated installation instructions and
+usage examples.
+
+- **Breaking Changes**
+	- Renamed package from `egg-scripts` to `@eggjs/scripts`.
+	- Requires Node.js version 18.19.0 or higher.
+	- Significant changes to project structure and module exports.
+
+- **Bug Fixes**
+	- Improved process management for server start and stop operations.
+	- Enhanced cross-platform compatibility.
+- Fixed issues with asynchronous route handlers in various applications.
+<!-- end of auto-generated comment: release notes by coderabbit.ai -->
+
+### Features
+
+* support cjs and esm both by tshy ([#63](https://github.com/eggjs/scripts/issues/63)) ([d9d0bc6](https://github.com/eggjs/scripts/commit/d9d0bc65aefd1d73be2c40b86366af566cf471c1))
+
 ## [3.1.0](https://github.com/eggjs/egg-scripts/compare/v3.0.1...v3.1.0) (2024-12-10)
 
 
