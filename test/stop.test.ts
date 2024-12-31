@@ -210,7 +210,7 @@ describe('test/stop.test.ts', () => {
       app2 = coffee.fork(eggBin, [ 'start', '--workers=2', '--title=test', '--port=7002', fixturePath ]) as Coffee;
       app2.expect('code', 0);
 
-      await scheduler.wait(waitTime);
+      await scheduler.wait(10000);
 
       assert.equal(replaceWeakRefMessage(app.stderr), '');
       assert.match(app.stdout, /custom-framework started on http:\/\/127\.0\.0\.1:7001/);
