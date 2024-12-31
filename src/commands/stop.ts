@@ -59,7 +59,12 @@ export default class Stop<T extends typeof Stop> extends BaseCommand<T> {
     let pids = processList.map(x => x.pid);
 
     if (pids.length) {
-      this.log('got master pid %j', pids);
+      this.log('got master pid %j, list:', pids);
+      this.log('');
+      for (const item of processList) {
+        this.log('- %s: %o', item.pid, item.cmd);
+      }
+      this.log('');
       this.killProcesses(pids);
       // wait for 5s to confirm whether any worker process did not kill by master
       await scheduler.wait(flags.timeout);
