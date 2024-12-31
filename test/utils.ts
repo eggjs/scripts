@@ -1,5 +1,9 @@
 import { scheduler } from 'node:timers/promises';
+import { ChildProcess } from 'node:child_process';
+import { Coffee as _Coffee } from 'coffee';
 import { isWindows, findNodeProcess } from '../src/helper.js';
+
+export type Coffee = _Coffee & { proc: ChildProcess, stderr: string, stdout: string, code?: number };
 
 export async function cleanup(baseDir: string) {
   const processList = await findNodeProcess(x => {

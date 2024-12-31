@@ -3,21 +3,18 @@ import { fileURLToPath } from 'node:url';
 import { strict as assert } from 'node:assert';
 import fs from 'node:fs/promises';
 import { scheduler } from 'node:timers/promises';
-import { ChildProcess } from 'node:child_process';
 import { createServer } from 'node:http';
 import { once } from 'node:events';
-import coffee, { Coffee as _Coffee } from 'coffee';
+import coffee from 'coffee';
 import { request } from 'urllib';
 import { mm, restore } from 'mm';
 import { exists } from 'utility';
-import { cleanup, replaceWeakRefMessage } from './utils.js';
+import { cleanup, replaceWeakRefMessage, Coffee } from './utils.js';
 import { isWindows, getSourceFilename } from '../src/helper.js';
 
 const version = parseInt(process.version.split('.')[0].substring(1));
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-type Coffee = _Coffee & { proc: ChildProcess, stderr: string, stdout: string, code?: number };
 
 describe('test/start.test.ts', () => {
   const eggBin = getSourceFilename('../bin/run.js');
