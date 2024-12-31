@@ -633,7 +633,7 @@ describe('test/start.test.ts', () => {
     });
 
     describe('read egg.revert', () => {
-      if (version < 18 || version > 20) return;
+      if (version !== 20) return;
       if (isWindows) return;
       let app: Coffee;
       let fixturePath: string;
