@@ -18,7 +18,7 @@ describe('test/stop.test.ts', () => {
   const timeoutPath = path.join(__dirname, 'fixtures/stop-timeout');
   const homePath = path.join(__dirname, 'fixtures/home');
   const logDir = path.join(homePath, 'logs');
-  const waitTime = 3000;
+  const waitTime = 10000;
 
   before(async () => {
     await fs.mkdir(homePath, { recursive: true });

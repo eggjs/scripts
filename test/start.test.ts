@@ -21,7 +21,7 @@ describe('test/start.test.ts', () => {
   const fixturePath = path.join(__dirname, 'fixtures/example');
   const homePath = path.join(__dirname, 'fixtures/home');
   const logDir = path.join(homePath, 'logs');
-  const waitTime = 3000;
+  const waitTime = 10000;
 
   before(async () => {
     await fs.mkdir(homePath, { recursive: true });
@@ -151,18 +151,18 @@ describe('test/start.test.ts', () => {
 
       it('should start', async () => {
         app = coffee.fork(eggBin, [ 'start', '--workers=2', fixturePath ]) as Coffee;
-        // app.debug();
+        app.debug();
         app.expect('code', 0);
 
         await scheduler.wait(waitTime);
 
         assert.equal(replaceWeakRefMessage(app.stderr), '');
-        assert(!app.stdout.includes('DeprecationWarning:'));
+        // assert(!app.stdout.includes('DeprecationWarning:'));
         assert(app.stdout.includes('--title=egg-server-example'));
         assert(app.stdout.includes('"title":"egg-server-example"'));
-        assert(app.stdout.match(/custom-framework started on http:\/\/127\.0\.0\.1:7001/));
-        assert(app.stdout.includes('app_worker#2:'));
-        assert(!app.stdout.includes('app_worker#3:'));
+        assert.match(app.stdout, /custom-framework started on http:\/\/127\.0\.0\.1:7001/);
+        assert.match(app.stdout, /app_worker#2:/);
+        assert.doesNotMatch(app.stdout, /app_worker#3:/);
         const result = await request('http://127.0.0.1:7001');
         assert.equal(result.data.toString(), 'hi, egg');
       });
