@@ -1,11 +1,14 @@
-const helper = require('../lib/helper');
-const sleep = require('mz-modules/sleep');
-const isWin = process.platform === 'win32';
+import { scheduler } from 'node:timers/promises';
+import { ChildProcess } from 'node:child_process';
+import { Coffee as _Coffee } from 'coffee';
+import { isWindows, findNodeProcess } from '../src/helper.js';
 
-exports.cleanup = async function(baseDir) {
-  const processList = await helper.findNodeProcess(x => {
-    const dir = isWin ? baseDir.replace(/\\/g, '\\\\') : baseDir;
-    const prefix = isWin ? '\\"baseDir\\":\\"' : '"baseDir":"';
+export type Coffee = _Coffee & { proc: ChildProcess, stderr: string, stdout: string, code?: number };
+
+export async function cleanup(baseDir: string) {
+  const processList = await findNodeProcess(x => {
+    const dir = isWindows ? baseDir.replace(/\\/g, '\\\\') : baseDir;
+    const prefix = isWindows ? '\\"baseDir\\":\\"' : '"baseDir":"';
     return x.cmd.includes(`${prefix}${dir}`);
   });
 
@@ -26,7 +29,7 @@ exports.cleanup = async function(baseDir) {
       try {
         process.kill(pid, type === 'master' ? '' : 'SIGKILL');
         console.log(`cleanup ${type} ${pid}`);
-      } catch (err) {
+      } catch (err: any) {
         console.log(`cleanup ${type} ${pid} got error ${err.code || err.message || err}`);
         if (err.code !== 'ESRCH') {
           throw err;
@@ -34,14 +37,14 @@ exports.cleanup = async function(baseDir) {
       }
     }
 
-    await sleep('5s');
+    await scheduler.wait(5000);
   }
-};
+}
 
-exports.replaceWeakRefMessage = function(stderr) {
+export function replaceWeakRefMessage(stderr: string) {
   // Using compatibility WeakRef and FinalizationRegistry\r\n
   if (stderr.includes('Using compatibility WeakRef and FinalizationRegistry')) {
     stderr = stderr.replace(/Using compatibility WeakRef and FinalizationRegistry[\r\n]*/g, '');
   }
   return stderr;
-};
+}
