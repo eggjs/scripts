@@ -1,13 +1,11 @@
-'use strict';
-
-const sleep = require('mz-modules/sleep');
+const { scheduler } = require('node:timers/promises');
 
 module.exports = app => {
   if (process.env.ERROR) {
     app.logger.error(new Error(process.env.ERROR));
   }
 
-  app.beforeStart(function* () {
-    yield sleep(process.env.WAIT_TIME);
+  app.beforeStart(async () => {
+    await scheduler.wait(parseInt(process.env.WAIT_TIME));
   });
 };

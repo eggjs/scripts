@@ -43,7 +43,6 @@ export default class Start<T extends typeof Start> extends BaseCommand<T> {
     port: Flags.integer({
       description: 'listening port, default to `process.env.PORT`',
       char: 'p',
-      // default: process.env.PORT,
     }),
     workers: Flags.integer({
       char: 'c',
@@ -133,8 +132,6 @@ export default class Start<T extends typeof Start> extends BaseCommand<T> {
       baseDir = path.join(cwd, baseDir);
     }
     await this.initBaseInfo(baseDir);
-
-    const isDaemon = flags.daemon;
 
     flags.framework = await this.getFrameworkPath({
       framework: flags.framework,
@@ -236,6 +233,10 @@ export default class Start<T extends typeof Start> extends BaseCommand<T> {
       }
     }
 
+    if (flags.port === undefined && process.env.PORT) {
+      flags.port = parseInt(process.env.PORT);
+    }
+
     debug('flags: %o, framework: %o, baseDir: %o, execArgv: %o',
       flags, frameworkName, baseDir, execArgv);
 
@@ -262,7 +263,7 @@ export default class Start<T extends typeof Start> extends BaseCommand<T> {
     this.log('Spawn %o', spawnScript);
 
     // whether run in the background.
-    if (isDaemon) {
+    if (flags.daemon) {
       this.log(`Save log file to ${logDir}`);
       const [ stdout, stderr ] = await Promise.all([
         getRotateLog(flags.stdout),
