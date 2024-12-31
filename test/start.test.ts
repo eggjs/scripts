@@ -151,7 +151,7 @@ describe('test/start.test.ts', () => {
 
       it('should start', async () => {
         app = coffee.fork(eggBin, [ 'start', '--workers=2', fixturePath ]) as Coffee;
-        app.debug();
+        // app.debug();
         app.expect('code', 0);
 
         await scheduler.wait(waitTime);
@@ -171,7 +171,7 @@ describe('test/start.test.ts', () => {
         app = coffee.fork(eggBin, [
           'start', '--workers=1', path.join(__dirname, 'fixtures/trace-warnings'),
         ]) as Coffee;
-        app.debug();
+        // app.debug();
         app.expect('code', 0);
 
         await scheduler.wait(waitTime);
@@ -188,7 +188,7 @@ describe('test/start.test.ts', () => {
             PATH: process.env.PATH,
           },
         }) as Coffee;
-        app.debug();
+        // app.debug();
         app.expect('code', 0);
 
         await scheduler.wait(waitTime);
@@ -650,7 +650,7 @@ describe('test/start.test.ts', () => {
 
       it('should start', async () => {
         app = coffee.fork(eggBin, [ 'start', '--workers=1', fixturePath ]) as Coffee;
-        app.debug();
+        // app.debug();
         app.expect('code', 0);
 
         await scheduler.wait(waitTime);
